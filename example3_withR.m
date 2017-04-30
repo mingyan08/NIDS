@@ -1,7 +1,15 @@
-
 function example3_withR
-% change from function DecentralizedCS_v14_withR_loop_NIDSmaxcRate_v44
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%      minimize S(x) + R(x)   subject to Wx = x                                              
+%    S is differentiable: S = 1/2||Mx-y||_2^2 
+%    R is proximable:     R = lam* ||x||_1
+%    W is the given mixing matrix      
+       
+%    Reference: A Decentralized Proximal-Gradient Method with Network 
+%               Independent Step-zsizes and Seperated Convergence Rates
+%       
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global n m p M y_ori lam
 path(path, '.\fcns')
 

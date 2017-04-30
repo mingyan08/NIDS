@@ -1,5 +1,14 @@
 function example1_noR
-% change from function DecentralizedCS_v14_noR_loop_Mrate_cookM3_v11
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%      minimize S(x)   subject to Wx = x   
+%    S is differentiable: S = 1/2||Mx-y||_2^2             
+%    W is the given mixing matrix      
+       
+%    Reference: A Decentralized Proximal-Gradient Method with Network 
+%               Independent Step-zsizes and Seperated Convergence Rates
+%       
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global n m p M y_ori lam
 path(path, '.\fcns')
 n = 40; % number of nodes
@@ -7,7 +16,7 @@ m = 60;
 p = 50; % the dimension of x on each nodes
 
 L = n;
-per_set=[14,18];
+per_set=[14,18]; % parameters control the connectivity of the network
 for perr = per_set
     per = perr/L;
     resSubPath = ['per',num2str(perr),'overL_mu0_5'];
@@ -16,21 +25,24 @@ for perr = per_set
     min_mu = 0.5; % set the smallest strongly convex parameter mu in S
     max_Lips = 1; % set the Lipschitz constant
     
-    W = generateW(L,per);
+    W = generateW(L,per); % generate the network W
+    % generate the smooth function S
     [M, x_ori, y_ori] = generateS(m, p, n,...
         'withoutNonsmoothR',min_mu,max_Lips);
 
-    
+    % find the smallest eigenvalue of W
     [~, lambdan] = eigW(W); % find the smallest eigenvalue of W
     
+    % find the Lipschitz constants and the strongly convex parameters of
+    % S_i
     [Lips,mus] = getBetaSmoothAlphaStrong;
     max_Lips   = max(Lips);
     min_mu     = min(mus);
     
     % set parameters
-    iter    = 2000;
+    iter    = 2000;      % the maximum number of iterations
     tol     = 1e-11;     % tolerance, this controls |x-x_star|_F, not divided by |x_star|_F
-    x0      = zeros(n,p);
+    x0      = zeros(n,p);% initial guess of the solution
     x_star  = x_ori;     % true solution
     % Set the parameter for the solver
     paras.min_mu    = min_mu;
@@ -81,6 +93,7 @@ for perr = per_set
                 alpha = cRate./Lips;
                 paras.alpha = alpha;
                 
+                % 
                 eye_L = eye(n);
                 I_W   = eye_L-W;
                 [U,S,V] = svd(I_W);

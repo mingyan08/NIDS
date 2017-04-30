@@ -1,6 +1,14 @@
 function example2_noR
-% change from function DecentralizedCS_v14_noR_loop_Mrate2_cookM4_largersize_v33
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%      minimize S(x)   subject to Wx = x   
+%    S is differentiable: S = 1/2||Mx-y||_2^2             
+%    W is the given mixing matrix             
+       
+%    Reference: A Decentralized Proximal-Gradient Method with Network 
+%               Independent Step-zsizes and Seperated Convergence Rates
+%       
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global n m p M y_ori lam
 path(path, '.\fcns')
 
@@ -12,7 +20,7 @@ L = n;
 per = 16/L;
 resSubPath = 'per16overL_mu0_2';
 % call which function to change M
-cookM_num = 7;
+modifyM_num = 7;
 Mrate = 2;
 % may changed in the following function
 min_mu = 0.2; % set the smallest strongly convex parameter mu in S
@@ -20,7 +28,7 @@ max_Lips = 1; % set the Lipschitz constant
 
 W = generateW(L,per);
 [M, x_ori, y_ori] = generateS(m, p, n,...
-    'withoutNonsmoothR',min_mu,max_Lips,Mrate,cookM_num);
+    'withoutNonsmoothR',min_mu,max_Lips,Mrate,modifyM_num);
 
 [~, lambdan] = eigW(W); % find the smallest eigenvalue of W
 

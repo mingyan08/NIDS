@@ -1,5 +1,5 @@
 function [M_f,x_f,y_f,lam] = generateS(m,p,n,...
-    method,mu,Lips,Mrate,cookM_num)
+    method,mu,Lips,Mrate,modifyM_num)
 
 if (nargin < 6)
     Lips = 1;
@@ -8,7 +8,7 @@ if (nargin < 7)
     Mrate = 1;
 end
 if (nargin < 8)
-    cookM_num = 4;
+    modifyM_num = 4;
 end
 L_f=1;
 
@@ -31,11 +31,11 @@ for i=1:n
     M_f(:,:,i)=((sqrt(L_f)/norm(M_f(:,:,i),2))*M_f(:,:,i)')';
 end;
 
-switch cookM_num
+switch modifyM_num
     case 4
-        [M_f, M_f_T] = cookM4(m,p,n,M_f,mu,Lips,Mrate);
+        [M_f, M_f_T] = modifyM4(m,p,n,M_f,mu,Lips,Mrate);
     case 7
-        [M_f, M_f_T] = cookM7(m,p,n,M_f,mu,Lips,Mrate);
+        [M_f, M_f_T] = modifyM7(m,p,n,M_f,mu,Lips,Mrate);
     otherwise
         disp('other value')
 end
@@ -74,7 +74,7 @@ x_f=(x_CS*ones(1,n))';
 
 end
 
-function [M_f, M_f_T] = cookM4(m,p,n,M_f,mu,Lips,Mrate)
+function [M_f, M_f_T] = modifyM4(m,p,n,M_f,mu,Lips,Mrate)
 % change based on even or odd
 if (nargin < 6)
     Lips = 1;
@@ -108,7 +108,7 @@ for i=1:n
 end
 end
 
-function [M_f, M_f_T] = cookM7(m,p,n,M_f,mu,Lips,Mrate)
+function [M_f, M_f_T] = modifyM7(m,p,n,M_f,mu,Lips,Mrate)
 % change based on even or odd
 if (nargin < 6)
     Lips = 1;
