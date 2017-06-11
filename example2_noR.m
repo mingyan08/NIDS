@@ -55,7 +55,7 @@ paras.tol       = tol;  % tolerance
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % start using the NIDS class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-obj            =  PrimalDual;  % using the class PrimalDual
+obj            =  NIDS;  % using the class PrimalDual
 
 obj.getS       = @(x) feval(@funS, x);
 obj.getGradS   = @(x) feval(@funGradS, x);

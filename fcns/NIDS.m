@@ -1,4 +1,4 @@
-classdef PrimalDual
+classdef NIDS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Decentralized Optimization with Network InDependent Stepsizes                             
 %      minimize S(x) + R(x)   subject to Wx = x                                              

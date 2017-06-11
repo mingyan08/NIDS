@@ -39,7 +39,7 @@ W = generateW(L,per);
 max_Lips = max(Lips);
 min_mu = min(mus);
 % set parameters
-iter    = 60000;
+iter    = 1000;
 tol     = 1e-7;     % tolerance, this controls |x-x_star|_F, not divided by |x_star|_F
 
 x0      = zeros(n,p);
@@ -59,7 +59,7 @@ paras.tol       = tol;  % tolerance
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % start using the NIDS class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-obj            =  PrimalDual;  % using the class PrimalDual
+obj            =  NIDS;  % using the class PrimalDual
 
 obj.getS       = @(x) feval(@funS, x);
 obj.getR       = @(x) feval(@funR, x);
